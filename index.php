@@ -1,33 +1,10 @@
 <?php
 
+require __DIR__ . "/includes/scripts/create_password_function.php";
+
 $characters_type = ['alfa_upper', 'alfa_lower', 'number', 'simbol'];
+
 $password_length = isset($_GET["password-length"]);
-
-function create_random_password($password_length, $characters_type)
-{
-
-    $characters = "";
-    if (in_array('alfa_upper', $characters_type)) {
-        $characters .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    }
-    if (in_array('alfa_lower', $characters_type)) {
-        $characters .= 'abcdefghijklmnopqrstuvwxyz';
-    }
-    if (in_array('number', $characters_type)) {
-        $characters .= '1234567890';
-    }
-    if (in_array('simbol', $characters_type)) {
-        $characters .= '!"$%&/()=?\^@#[]*';
-    }
-    if (!is_numeric($password_length)) {
-        $length = 4;
-    }
-    $string = '';
-    for ($i = 0; $i < $password_length; $i++) {
-        $string = $string . substr($characters, rand(0, strlen($characters) - 1), 1);
-    }
-    return $string;
-}
 
 if ($password_length) {
     $random_password = create_random_password(intval($_GET["password-length"]), $characters_type);
@@ -68,6 +45,7 @@ if ($password_length) {
                             <input type="number" class="form-control" id="password-length" min="4" name="password-length" value="<?= $_GET["password-length"] ?? 4 ?>">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
+                        <a href="index.php" class="btn btn-danger">Annulla</a>
                     </form>
                 </div>
             </div>
