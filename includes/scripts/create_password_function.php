@@ -1,5 +1,5 @@
 <?php
-function create_random_password($password_length, $characters_type)
+function create_random_password($password_length, $characters_type, $repeating_characters)
 {
 
     $characters = "";
@@ -18,9 +18,22 @@ function create_random_password($password_length, $characters_type)
     if (!is_numeric($password_length)) {
         $length = 4;
     }
-    $string = '';
-    for ($i = 0; $i < $password_length; $i++) {
-        $string = $string . substr($characters, rand(0, strlen($characters) - 1), 1);
+
+    if (!$repeating_characters) {
+        $string = '';
+        $new_characters = '';
+        while (mb_strlen($string) < $password_length) {
+            $new_characters =  substr($characters, rand(0, strlen($characters) - 1), 1);
+            if (!str_contains($string, $new_characters)) {
+                $string .= $new_characters;
+            }
+        };
+        return $string;
+    } else {
+        $string = '';
+        for ($i = 0; $i < $password_length; $i++) {
+            $string = $string . substr($characters, rand(0, strlen($characters) - 1), 1);
+        }
+        return $string;
     }
-    return $string;
 }
