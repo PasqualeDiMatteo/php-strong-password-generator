@@ -1,5 +1,5 @@
 <?php
-function create_random_password($password_length, $characters_type, $repeating_characters)
+function create_random_password($password_length, $characters_type, $repeating_characters, $type, $message)
 {
 
     $characters = "";

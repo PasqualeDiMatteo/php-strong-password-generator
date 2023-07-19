@@ -1,13 +1,29 @@
 <?php
 session_start();
 require __DIR__ . "/includes/scripts/create_password_function.php";
-
-$characters_type = ['alfa_upper', 'alfa_lower', 'number', 'simbol'];
-
 $password_length = isset($_GET["password-length"]);
 $repeating_characters = isset($_GET["characters"]);
+$letters = isset($_GET["letters"]);
+$numbers = isset($_GET["numbers"]);
+$symbols = isset($_GET["symbols"]);
+$characters_type = [];
+if ($letters) {
+
+    $characters_type[] = 'alfa_upper';
+    $characters_type[] = 'alfa_lower';
+}
+if ($numbers) {
+    $characters_type[] = 'number';
+}
+if ($symbols) {
+    $characters_type[] = 'simbol';
+}
+
+if (!$letters && !$numbers && !$symbols) {
+    $characters_type = ['alfa_upper', 'alfa_lower', 'number', 'simbol'];
+}
 if ($password_length) {
-    $random_password = create_random_password(intval($_GET["password-length"]), $characters_type, $repeating_characters);
+    $random_password = create_random_password(intval($_GET["password-length"]), $characters_type, $repeating_characters, $type, $message);
     header('Location: random_password.php');
     $_SESSION["password"] = $random_password;
 }
@@ -44,6 +60,24 @@ if ($password_length) {
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" id="characters" name="characters">
                             <label class="form-check-label" for="characters">Consenti ripetizioni di uno o più caratteri?</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="letters" id="letters" name="letters">
+                            <label class="form-check-label" for="letters">
+                                Lettere
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="numbers" id="numbers" name="numbers">
+                            <label class="form-check-label" for="numbers">
+                                Numeri
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="symbols" id="symbols" name="symbols">
+                            <label class="form-check-label" for="symbols">
+                                Simboli
+                            </label>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <a href="index.php" class="btn btn-danger">Annulla</a>
