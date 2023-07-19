@@ -12,7 +12,25 @@
 </head>
 
 <body>
-
+    <div class="container mt-4">
+        <header class="text-center">
+            <h1>PHP Strong Password Generator</h1>
+        </header>
+        <main>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Genera una Password sicura</h5>
+                    <form action="" novalidate>
+                        <div class="mb-3">
+                            <label for="password-length" class="form-label">Lunghezza password:</label>
+                            <input type="number" class="form-control" id="password-length" min="4" name="password-length" value="<?= $_GET["password-length"] ?? 4 ?>">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
 </body>
 
 </html>
