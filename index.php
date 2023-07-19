@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require __DIR__ . "/includes/scripts/create_password_function.php";
 
 $characters_type = ['alfa_upper', 'alfa_lower', 'number', 'simbol'];
@@ -7,7 +7,9 @@ $characters_type = ['alfa_upper', 'alfa_lower', 'number', 'simbol'];
 $password_length = isset($_GET["password-length"]);
 
 if ($password_length) {
+    header('Location: random_password.php');
     $random_password = create_random_password(intval($_GET["password-length"]), $characters_type);
+    $_SESSION["password"] = $random_password;
 }
 
 ?>
@@ -29,11 +31,6 @@ if ($password_length) {
     <div class="container mt-4">
         <header class="text-center">
             <h1>PHP Strong Password Generator</h1>
-            <?php if (isset($random_password)) : ?>
-                <div class="alert alert-success text-center p-3" role="alert">
-                    <strong>La Password generata è:</strong> <?= $random_password ?>
-                </div>
-            <?php endif ?>
         </header>
         <main>
             <div class="card">
