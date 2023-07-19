@@ -17,7 +17,7 @@ function create_random_password($password_length, $characters_type)
         $characters .= '1234567890';
     }
     if (in_array('simbol', $characters_type)) {
-        $characters .= '!"£$%&/()=?\^@#[]*';
+        $characters .= '!"$%&/()=?\^@#[]*';
     }
     if (!is_numeric($password_length)) {
         $length = 4;
@@ -30,7 +30,7 @@ function create_random_password($password_length, $characters_type)
 }
 
 if ($password_length) {
-    echo create_random_password(intval($_GET["password-length"]), $characters_type);
+    $random_password = create_random_password(intval($_GET["password-length"]), $characters_type);
 }
 
 ?>
@@ -52,6 +52,11 @@ if ($password_length) {
     <div class="container mt-4">
         <header class="text-center">
             <h1>PHP Strong Password Generator</h1>
+            <?php if (isset($random_password)) : ?>
+                <div class="alert alert-success text-center p-3" role="alert">
+                    <strong>La Password generata è:</strong> <?= $random_password ?>
+                </div>
+            <?php endif ?>
         </header>
         <main>
             <div class="card">
