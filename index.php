@@ -1,4 +1,41 @@
-<?php ?>
+<?php
+
+$characters_type = ['alfa_upper', 'alfa_lower', 'number', 'simbol'];
+$password_length = isset($_GET["password-length"]);
+
+function create_random_password($password_length, $characters_type)
+{
+
+    $characters = "";
+    if (in_array('alfa_upper', $characters_type)) {
+        $characters .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    }
+    if (in_array('alfa_lower', $characters_type)) {
+        $characters .= 'abcdefghijklmnopqrstuvwxyz';
+    }
+    if (in_array('number', $characters_type)) {
+        $characters .= '1234567890';
+    }
+    if (in_array('simbol', $characters_type)) {
+        $characters .= '!"£$%&/()=?\^@#[]*';
+    }
+    if (!is_numeric($password_length)) {
+        $length = 4;
+    }
+    $string = '';
+    for ($i = 0; $i < $password_length; $i++) {
+        $string = $string . substr($characters, rand(0, strlen($characters) - 1), 1);
+    }
+    return $string;
+}
+
+if ($password_length) {
+    echo create_random_password(intval($_GET["password-length"]), $characters_type);
+}
+
+?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
